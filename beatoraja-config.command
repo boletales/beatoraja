@@ -8,9 +8,11 @@ cd "$(dirname "$0")"
 # Since Java 11, JavaFX is no longer bundled with most JDKs, you need a JRE with JavaFX included (e.g., Liberica JRE Full) or place OpenJFX separately.
 
 # Set JRE_PATH if you use a portable JRE/JDK (e.g. if you placed Liberica JRE Full 25.0.5.0.3+5 at <beatoraja folder>/jre-25.0.5.0.3-full, set JRE_PATH="jre-25.0.5.0.3-full")
+# Leave JRE_PATH empty to use the system Java (must be JRE 17+)
 JRE_PATH=""
 
 # Set JAVAFX_PATH if you use a portable JavaFX (e.g. if you placed OpenJFX 27.0.1 at <beatoraja folder>/javafx-sdk-27.0.1, set JAVAFX_PATH="javafx-sdk-27.0.1")
+# Leave JAVAFX_PATH empty if your JRE/JDK already includes JavaFX (e.g., Liberica JRE Full)
 JAVAFX_PATH=""
 
 # beatoraja runtime options
@@ -95,8 +97,9 @@ else
   echo "[beatoraja-config.command] Using JavaFX included in Java runtime"
 fi
 
-echo "[beatoraja-config.command] Starting beatoraja"
 
 # Run beatoraja
+echo "[beatoraja-config.command] Starting beatoraja"
+
 export JDK_JAVA_OPTIONS="${JDK_JAVA_OPTIONS:+$JDK_JAVA_OPTIONS }-Dfile.encoding=UTF-8"
 exec java $JAVA_OPTS -cp "beatoraja.jar:ir/*" bms.player.beatoraja.MainLoader
